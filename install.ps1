@@ -8,7 +8,7 @@ if (!(Test-Path -Path $stateFile)) {
   New-Item -Path "$HOME\temp\state.txt" -ItemType file
 
   "Language: False" >> "$HOME\temp\state.txt"
-  echo "✔ State file created" -ForegoundColor Green
+  echo "✔ State file created" -ForegroundColor Green
 }
 
 ###############################
@@ -21,5 +21,5 @@ if (Select-String -Path $stateFile -Pattern "Language: False") {
     Set-WinUserLanguageList -LanguageList en-US -Force
   }
   (Get-Content $stateFile) -replace "Language: False", "Language: True" | Set-Content $stateFile
-  echo "✔ System locale set to en-US" -ForegoundColor Green
+  echo "✔ System locale set to en-US" -ForegroundColor Green
 }

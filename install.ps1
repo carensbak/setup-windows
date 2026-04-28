@@ -14,7 +14,7 @@ if (!(Test-Path -Path $stateFile)) {
 ###############################
 # English language locale
 ###############################
-if (Select-String -Path $stateFile -Pattern "Language: False") {
+if (Select-String -Path $stateFile -Pattern "Language: Fals") {
   Write-Host "Setting system locale to en-US..." -ForegroundColor Cyan
   if (!(Get-UICulture -eq "en-US")) {
     Install-Language en-US

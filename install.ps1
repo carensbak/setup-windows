@@ -21,5 +21,5 @@ if (Select-String -Path $stateFile -Pattern "Language: False") {
     Set-WinUserLanguageList -LanguageList en-US -Force
   }
   #(Get-Content $stateFile) -replace "Language: False", "Language: True" | Set-Content $stateFile
-  Write-Host "✔ System locale set to en-US" -ForegroundColor Green
+  #Write-Host "✔ System locale set to en-US" -ForegroundColor Green
 }

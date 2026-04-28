@@ -4,8 +4,8 @@
 $stateFile = "$HOME\temp-setup\state.txt"
 if (!(Test-Path -Path $stateFile)) {
   echo "State file not found, creating one under '$HOME\temp-setup\state.txt'..." -ForegroundColor Cyan
-  New-Item -Path "$HOME\temp" -ItemType directory -Force
-  New-Item -Path "$HOME\temp\state.txt" -ItemType file
+  New-Item -Path "$HOME\temp-setup" -ItemType directory -Force
+  New-Item -Path "$HOME\temp-setup\state.txt" -ItemType file
 
   "Language: False" >> "$HOME\temp\state.txt"
   echo "✔ State file created" -ForegroundColor Green

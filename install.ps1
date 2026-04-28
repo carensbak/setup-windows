@@ -7,7 +7,7 @@ if (!(Test-Path -Path $stateFile)) {
   New-Item -Path "$HOME\temp-setup" -ItemType directory -Force
   New-Item -Path "$HOME\temp-setup\state.txt" -ItemType file
 
-  "Language: False" >> "$HOME\temp\state.txt"
+  "Language: False" >> $stateFile
   Write-Host "✔ State file created" -ForegroundColor Green
 }
 

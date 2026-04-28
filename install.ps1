@@ -7,7 +7,7 @@ if (!(Test-Path -Path $stateFile)) {
   New-Item -Path "$HOME\temp-setup" -ItemType directory -Force | Out-Null
   New-Item -Path "$HOME\temp-setup\state.txt" -ItemType file | Out-Null
 
-  Add-Content -Path $stateFile -Value "Language: False" -Encoding utf8
+  "Language: False" | Out-File -FilePath $stateFile -Append -Encoding utf8 -Force
   Write-Host "✔ State file created" -ForegroundColor Green
 }
 
@@ -21,5 +21,5 @@ if (Select-String -Path $stateFile -Pattern "Language: False") {
     Set-WinUserLanguageList -LanguageList en-US -Force
   }
   (Get-Content $stateFile) -replace "Language: False", "Language: True" | Set-Content $stateFile
-  Write-Host "✔ System locale set to en-US" -ForegroundColor Green
+  #Write-Host "✔ System locale set to en-US" -ForegroundColor Green
 }

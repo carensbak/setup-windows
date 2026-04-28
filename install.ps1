@@ -84,3 +84,6 @@ if (Select-String -Path $stateFile -Pattern "Github: False") {
   (Get-Content $stateFile) -replace "Github: False", "Github: True" | Set-Content $stateFile
 }
 
+###############################
+# PowerToys
+###############################

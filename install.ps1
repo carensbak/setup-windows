@@ -9,6 +9,7 @@ Obsidian: False
 VSCode: False
 WSL: False
 Browser: False
+Theme: False
 "@
 
 ###############################
@@ -87,3 +88,26 @@ if (Select-String -Path $stateFile -Pattern "Github: False") {
 ###############################
 # PowerToys
 ###############################
+
+###############################
+# Theme
+###############################
+if (Select-String -Path $stateFile -Pattern "Theme: False") {
+  $currentVersion = "HKCU:\Software\Microsoft\Windows\CurrentVersion"
+  Set-ItemProperty -Path "$currentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Value 0
+  Set-ItemProperty -Path "$currentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Value 0
+  
+  $accentBytes = [byte[]](
+    255, 232,  69,   0,
+    255, 215,   0,   0,
+    255, 180,   0,   0,
+    230, 160,   0,   0,
+    200, 140,   0,   0,
+    170, 120,   0,   0,
+    140, 100,   0,   0,
+      0,   0,   0,   0
+  )
+  Set-ItemProperty -Path "$currentVersion\Explorer\Accent" -Name "AccentPalette" -Value $accentBytes
+  
+  (Get-Content $stateFile) -replace "Theme: False", "Theme: True" | Set-Content $stateFile
+}

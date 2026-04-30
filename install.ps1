@@ -10,6 +10,7 @@ VSCode: False
 WSL: False
 Browser: False
 Theme: False
+Power: False
 "@
 
 ###############################
@@ -88,6 +89,9 @@ if (Select-String -Path $stateFile -Pattern "Github: False") {
 ###############################
 # PowerToys
 ###############################
+if (Select-String -Path $stateFile -Pattern "PowerToys: False") {
+  
+}
 
 ###############################
 # Theme
@@ -110,4 +114,24 @@ if (Select-String -Path $stateFile -Pattern "Theme: False") {
   Set-ItemProperty -Path "$currentVersion\Explorer\Accent" -Name "AccentPalette" -Value $accentBytes
   
   (Get-Content $stateFile) -replace "Theme: False", "Theme: True" | Set-Content $stateFile
+}
+
+###############################
+# Obsidian & Notes
+###############################
+if (Select-String -Path $stateFile -Pattern "Obsidian: False") {
+  choco install obsidian
+  git clone git@github.com:carensbak/Notes.git $HOME\Notes
+
+  (Get-Content $stateFile) -replace "Obsidian: False", "Obsidian: True" | Set-Content $stateFile
+}
+
+###############################
+# Power options
+###############################
+if (Select-String -Path $stateFile -Pattern "Power: False") {
+  powercfg /setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 0 #These should prevent the PC from going into idle/sleep mode after X seconds, so we manually have to lock the PC
+  powercfg /setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 0
+
+  (Get-Content $stateFile) -replace "Power: False", "Power: True" | Set-Content $stateFile
 }

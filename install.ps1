@@ -173,6 +173,7 @@ if (Select-String -Path $stateFile -Pattern "WSL: False") {
 ###############################
 if (Select-String -Path $stateFile -Pattern "VSCode: False") {
   winget install vscode --Id Microsoft.VisualStudioCode
+  #TODO: Copy over settings.json & install plugins
   
   (Get-Content $stateFile) -replace "VSCode: False", "VSCode: True" | Set-Content $stateFile
 }

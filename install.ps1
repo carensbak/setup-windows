@@ -1,5 +1,6 @@
 $stateFile = "$HOME\temp-setup\state.txt"
 $initialState = @"
+Debloat: False
 Language: False
 Chocolatey: False
 Git: False
@@ -69,6 +70,15 @@ if (Select-String -Path $stateFile -Pattern "Git: False") {
 }
 
 ###############################
+# Debloat script
+###############################
+if (Select-String -Path $stateFile -Pattern "Debloat: False") {
+  git clone git@github.com:Raphire/Win11Debloat.git $HOME\temp-setup\debloat
+  .\$HOME\temp-setup\debloat\Win11Debloat.ps1
+  (Get-Content $stateFile) -replace "Debloat: False", "Debloat: True" | Set-Content $stateFile
+}
+
+###############################
 # Github CLI
 ###############################
 if (Select-String -Path $stateFile -Pattern "Github: False") {
@@ -90,7 +100,7 @@ if (Select-String -Path $stateFile -Pattern "Github: False") {
 # PowerToys
 ###############################
 if (Select-String -Path $stateFile -Pattern "PowerToys: False") {
-  winget install PowerToys
+  winget install PowerToys --source winget
 
   (Get-Content $stateFile) -replace "PowerToys: False", "PowerToys: True" | Set-Content $stateFile
 }
@@ -147,4 +157,22 @@ if (Select-String -Path $stateFile -Pattern "Browser: False") {
   winget install brave
 
   (Get-Content $stateFile) -replace "Browser: False", "Browser: True" | Set-Content $stateFile
+}
+
+###############################
+# WSL
+###############################
+if (Select-String -Path $stateFile -Pattern "WSL: False") {
+  wsl --install Debian
+  
+  (Get-Content $stateFile) -replace "WSL: False", "WSL: True" | Set-Content $stateFile
+}
+
+###############################
+# VSCode
+###############################
+if (Select-String -Path $stateFile -Pattern "VSCode: False") {
+  winget install vscode --Id Microsoft.VisualStudioCode
+  
+  (Get-Content $stateFile) -replace "VSCode: False", "VSCode: True" | Set-Content $stateFile
 }

@@ -90,7 +90,9 @@ if (Select-String -Path $stateFile -Pattern "Github: False") {
 # PowerToys
 ###############################
 if (Select-String -Path $stateFile -Pattern "PowerToys: False") {
-  
+  winget install PowerToys
+
+  (Get-Content $stateFile) -replace "PowerToys: False", "PowerToys: True" | Set-Content $stateFile
 }
 
 ###############################
@@ -134,4 +136,15 @@ if (Select-String -Path $stateFile -Pattern "Power: False") {
   powercfg /setdcvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 0
 
   (Get-Content $stateFile) -replace "Power: False", "Power: True" | Set-Content $stateFile
+}
+
+###############################
+# Browser
+###############################
+if (Select-String -Path $stateFile -Pattern "Browser: False") {
+  $headers = @{"Cache-Control"="no-cache"; "Pragma"="no-cache"}
+  irm "https://raw.githubusercontent.com/carensbak/setup-windows/refs/heads/master/remove-edge.ps1" -Headers $headers | iex
+  winget install brave
+
+  (Get-Content $stateFile) -replace "Browser: False", "Browser: True" | Set-Content $stateFile
 }

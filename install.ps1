@@ -12,6 +12,7 @@ WSL: False
 Browser: False
 Theme: False
 Power: False
+Spotify: False
 "@
 
 ###############################
@@ -189,4 +190,13 @@ if (Select-String -Path $stateFile -Pattern "VSCode: False") {
   $settingsContent | Out-File -FilePath $settingsPath -Encoding utf8
   
   (Get-Content $stateFile) -replace "VSCode: False", "VSCode: True" | Set-Content $stateFile
+}
+
+###############################
+# Spotify
+###############################
+if (Select-String -Path $stateFile -Pattern "Spotify: False") {
+  winget install spotify --source msstore --accept-package-agreements
+  
+  (Get-Content $stateFile) -replace "Spotify: False", "Spotify: True" | Set-Content $stateFile
 }

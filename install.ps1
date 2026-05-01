@@ -177,7 +177,9 @@ if (Select-String -Path $stateFile -Pattern "VSCode: False") {
 
    # Install the VSCode plugins
   $pluginsList = irm "https://raw.githubusercontent.com/carensbak/setup-windows/refs/heads/master/vscode-plugins.txt"
-  $pluginslist | ForEach-Object { code --install-extension $_ }
+  $pluginslist -split "`r?`n" | Where-Object { $_.Trim() } | ForEach-Object { 
+    code --install-extension $_
+  }
 
   # Copy over the settings
   $settingsContent = irm "https://raw.githubusercontent.com/carensbak/setup-windows/refs/heads/master/vscode-settings.json"

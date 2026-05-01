@@ -65,6 +65,8 @@ if (Select-String -Path $stateFile -Pattern "Git: False") {
   if (Get-Command git -ErrorAction SilentlyContinue) {
     (Get-Content $stateFile) -replace "Git: False", "Git: True" | Set-Content $stateFile
     git -v
+    git config --global user.email "char@novax.dk"
+    git config --global user.name "Arensbak"
     Write-Host "✔ Git installed" -ForegroundColor Green
   }
 }

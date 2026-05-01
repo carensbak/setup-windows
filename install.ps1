@@ -132,7 +132,7 @@ if (Select-String -Path $stateFile -Pattern "Theme: False") {
 # Obsidian & Notes
 ###############################
 if (Select-String -Path $stateFile -Pattern "Obsidian: False") {
-  choco install obsidian
+  choco install obsidian -y
   git clone git@github.com:carensbak/Notes.git $HOME\Notes
 
   (Get-Content $stateFile) -replace "Obsidian: False", "Obsidian: True" | Set-Content $stateFile

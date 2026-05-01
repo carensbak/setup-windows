@@ -184,7 +184,7 @@ if (Select-String -Path $stateFile -Pattern "VSCode: False") {
   # Copy over the settings
   $settingsContent = irm "https://raw.githubusercontent.com/carensbak/setup-windows/refs/heads/master/vscode-settings.json"
   $settingsPath = Join-Path $env:APPDATA "Code\User\settings.json"
-  $settingsContent > $settingsPath
+  $settingsContent | Out-File -FilePath $settingsPath -Encoding utf8
   
   (Get-Content $stateFile) -replace "VSCode: False", "VSCode: True" | Set-Content $stateFile
 }

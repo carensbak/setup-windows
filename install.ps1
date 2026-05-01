@@ -87,7 +87,7 @@ if (Select-String -Path $stateFile -Pattern "Github: False") {
     choco install gh -y
   }
 
-  if (Get-Command gh -ErrorAction SilentlyContinue)) {
+  if (Get-Command gh -ErrorAction SilentlyContinue) {
     gh --version
     Write-Host "✔ Github CLI installed" -ForegroundColor Green
   }

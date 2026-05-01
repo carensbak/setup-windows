@@ -62,7 +62,7 @@ if (Select-String -Path $stateFile -Pattern "Git: False") {
     Write-Host "Installing git..." -ForegroundColor Cyan
     choco install git -y  
   }
-  if (Get-Command git -ErrorAction SilentlyContinue)) {
+  if (Get-Command git -ErrorAction SilentlyContinue) {
     (Get-Content $stateFile) -replace "Git: False", "Git: True" | Set-Content $stateFile
     git -v
     Write-Host "✔ Git installed" -ForegroundColor Green

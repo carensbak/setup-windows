@@ -47,7 +47,7 @@ if (Select-String -Path $stateFile -Pattern "Chocolatey: False") {
     Write-Host "Installing chocolatey..." -ForegroundColor Cyan
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
   }
-  if (Get-Command choco -ErrorAction SilentlyContinue)) {
+  if (Get-Command choco -ErrorAction SilentlyContinue) {
       (Get-Content $stateFile) -replace "Chocolatey: False", "Chocolatey: True" | Set-Content $stateFile
       choco -v
       Write-Host "✔ Chocolatey installed" -ForegroundColor Green

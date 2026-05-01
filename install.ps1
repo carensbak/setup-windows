@@ -176,13 +176,13 @@ if (Select-String -Path $stateFile -Pattern "VSCode: False") {
   winget install vscode --Id Microsoft.VisualStudioCode
 
    # Install the VSCode plugins
-  $pluginsList = irm "https://raw.githubusercontent.com/carensbak/setup-windows/refs/heads/master/vscode-plugins.txt"
+  $pluginsList = irm "https://raw.githubusercontent.com/carensbak/setup-windows/refs/heads/master/vscode/plugins.txt"
   $pluginslist -split "`r?`n" | Where-Object { $_.Trim() } | ForEach-Object { 
     code --install-extension $_
   }
 
   # Copy over the settings
-  $settingsContent = irm "https://raw.githubusercontent.com/carensbak/setup-windows/refs/heads/master/vscode-settings.json"
+  $settingsContent = irm "https://raw.githubusercontent.com/carensbak/setup-windows/refs/heads/master/vscode/settings.json"
   $settingsPath = Join-Path $env:APPDATA "Code\User\settings.json"
   $settingsContent | Out-File -FilePath $settingsPath -Encoding utf8
   

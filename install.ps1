@@ -13,6 +13,7 @@ Browser: False
 Theme: False
 Power: False
 Spotify: False
+Dotnet: False
 "@
 
 ###############################
@@ -199,4 +200,14 @@ if (Select-String -Path $stateFile -Pattern "Spotify: False") {
   winget install spotify --source msstore --accept-package-agreements
   
   (Get-Content $stateFile) -replace "Spotify: False", "Spotify: True" | Set-Content $stateFile
+}
+
+###############################
+# Dotnet SDK & Runtime
+###############################
+if (Select-String -Path $stateFile -Pattern "Dotnet: False") {
+  winget install Microsoft.DotNet.AspNetCore.10
+  winget install Microsoft.DotNet.SDK.10
+  
+  (Get-Content $stateFile) -replace "Dotnet: False", "Dotnet: True" | Set-Content $stateFile
 }

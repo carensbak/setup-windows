@@ -14,6 +14,7 @@ Theme: False
 Power: False
 Spotify: False
 Dotnet: False
+Docker: False
 "@
 
 ###############################
@@ -210,4 +211,13 @@ if (Select-String -Path $stateFile -Pattern "Dotnet: False") {
   winget install Microsoft.DotNet.SDK.10
   
   (Get-Content $stateFile) -replace "Dotnet: False", "Dotnet: True" | Set-Content $stateFile
+}
+
+###############################
+# Docker & Docker Desktop
+###############################
+if (Select-String -Path $stateFile -Pattern "Docker: False") {
+  winget install -e --Id Docker.DockerDesktop
+  
+  (Get-Content $stateFile) -replace "Docker: False", "Docker: True" | Set-Content $stateFile
 }

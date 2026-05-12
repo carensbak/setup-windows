@@ -70,6 +70,7 @@ if (Select-String -Path $stateFile -Pattern "Git: False") {
     git -v
     git config --global user.email "char@novax.dk"
     git config --global user.name "Arensbak"
+    git config --global --add --bool push.autoSetupRemote true
     Write-Host "✔ Git installed" -ForegroundColor Green
   }
 }

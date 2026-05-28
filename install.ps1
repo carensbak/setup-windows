@@ -13,8 +13,8 @@ Browser: False
 Theme: False
 Power: False
 Spotify: False
-Dotnet: False
 Docker: False
+Misc: False
 "@
 
 ###############################
@@ -205,20 +205,34 @@ if (Select-String -Path $stateFile -Pattern "Spotify: False") {
 }
 
 ###############################
-# Dotnet SDK & Runtime
-###############################
-if (Select-String -Path $stateFile -Pattern "Dotnet: False") {
-  winget install Microsoft.DotNet.AspNetCore.10
-  winget install Microsoft.DotNet.SDK.10
-  
-  (Get-Content $stateFile) -replace "Dotnet: False", "Dotnet: True" | Set-Content $stateFile
-}
-
-###############################
 # Docker & Docker Desktop
 ###############################
 if (Select-String -Path $stateFile -Pattern "Docker: False") {
   winget install -e --Id Docker.DockerDesktop
   
   (Get-Content $stateFile) -replace "Docker: False", "Docker: True" | Set-Content $stateFile
+}
+
+###############################
+# Misc package managers & languages
+###############################
+if (Select-String -Path $stateFile -Pattern "Misc: False") {
+  #Dotnet
+  winget install Microsoft.DotNet.AspNetCore.10
+  winget install Microsoft.DotNet.SDK.10
+
+  #Python
+  winget install -e --id Python.Python.3.11
+
+  #Node & npm
+  winget install -e --id OpenJS.NodeJS.LTS
+
+  #Go
+  winget install -e --id GoLang.Go
+
+  #Kind k8s
+  go install sigs.k8s.io/kind@v0.31.0
+
+  #Helm
+  winget install -e --id Helm.Helm
 }
